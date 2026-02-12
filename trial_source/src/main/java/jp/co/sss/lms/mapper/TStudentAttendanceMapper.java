@@ -64,5 +64,15 @@ public interface TStudentAttendanceMapper {
 	 * @return 更新結果
 	 */
 	Boolean update(TStudentAttendance tStudentAttendance);
+	
+	
+	//勤怠未入力
+	int notEnterCount(
+			@Param("lmsUserId") Integer lmsUserId,
+		    @Param("status") Integer status,
+		    @Param("today") String today);
 
+	
+	
+	
 }

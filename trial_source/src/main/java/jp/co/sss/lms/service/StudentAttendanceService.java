@@ -73,6 +73,18 @@ public class StudentAttendanceService {
 		return attendanceManagementDtoList;
 	}
 
+	
+	//tsk25
+	// の内容 "過去日の勤怠に未入力があります。" okで閉じる
+	
+	public  Boolean notEnterCheck(Integer lmsUserId) throws ParseException {
+		String today = dateUtil.getCurrentDateString();
+	    //未入力件数を取得
+	    int notEnterCount = tStudentAttendanceMapper.notEnterCount(lmsUserId, 0, today);
+	    return notEnterCount > 0;
+	}
+
+	
 	/**
 	 * 出退勤更新前のチェック
 	 * 

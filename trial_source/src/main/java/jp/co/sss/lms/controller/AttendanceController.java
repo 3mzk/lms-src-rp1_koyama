@@ -144,4 +144,29 @@ public class AttendanceController {
 		return "attendance/detail";
 	}
 
+	//task25
+	@Autowired
+	private StudentAttendanceService service;
+	@RequestMapping(path ="/detail")
+	public String notEnterCheck(Model model)
+			throws ParseException {
+			
+		Integer lmsUserId = loginUserDto.getLmsUserId();
+
+		Boolean notEntered = service.notEnterCheck(lmsUserId);
+		model.addAttribute("notEntered", notEntered);
+
+		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
+				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
+		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
+		
+		return "attendance/detail";
+	}
+
+	
+	
+	
+	
+	
+	
 }

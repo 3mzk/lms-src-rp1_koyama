@@ -87,6 +87,14 @@
 			return hours + ':' + minutes;
 		}
 	</script>
+	
+	<script th:inline="javascript">
+    let notEntered = /*[[${notEntered}]]*/ false;
+
+    if (notEntered) {
+        confirm(/*[[#{attendance.not.entered}]]*/);
+    }
+</script>
 
 </body>
 </html>

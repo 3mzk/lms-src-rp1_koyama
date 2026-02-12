@@ -86,4 +86,16 @@
 		WHERE student_attendance_id = #{studentAttendanceId}
 	</update>
 
+	
+<!--	<select id="notEnterCount" resultType="int">-->
+<!--        SELECT COUNT(*)-->
+<!--        FROM t_student_attendance-->
+<!--        WHERE lms_user_id = #{lmsUserId}-->
+<!--          	AND status = 0-->
+          	
+<!--          AND training_date < #{today}-->
+<!--          AND delete_flg = 0-->
+<!--    </select>-->
+	
+
 </mapper>

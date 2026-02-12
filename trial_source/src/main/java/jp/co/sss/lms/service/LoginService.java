@@ -2,13 +2,12 @@ package jp.co.sss.lms.service;
 
 import java.util.Calendar;
 
-import jakarta.servlet.http.HttpSession;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import jakarta.servlet.http.HttpSession;
 import jp.co.sss.lms.dto.LoginUserDto;
 import jp.co.sss.lms.entity.LoginUser;
 import jp.co.sss.lms.mapper.LoginMapper;
@@ -55,6 +54,7 @@ public class LoginService {
 
 		// salt + ストレッチングしたパスワードを取得
 		String saltPassword = passwordUtil.getSaltedAndStrechedPassword(password, loginId);
+		System.out.println("saltpass" + saltPassword);
 
 		// アカウントロックチェック
 		if (!checkLockTime()) {
