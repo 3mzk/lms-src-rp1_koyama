@@ -75,7 +75,7 @@ public class StudentAttendanceService {
 
 	
 	//tsk25
-	//  "過去日の勤怠に未入力があります。" okで閉じる
+	// "過去日の勤怠に未入力があります。" okで閉じる
 	
 //	public  Boolean notEnterCheck(Integer lmsUserId) throws ParseException {
 //		String today = dateUtil.getCurrentDateString();
