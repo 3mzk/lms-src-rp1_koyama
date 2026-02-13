@@ -347,5 +347,15 @@ public class StudentAttendanceService {
 		// 完了メッセージ
 		return messageUtil.getMessage(Constants.PROP_KEY_ATTENDANCE_UPDATE_NOTICE);
 	}
+	//tsk25
+	// "過去日の勤怠に未入力があります。" okで閉じる
+	
+	public  Boolean notEnterCheck(Integer lmsUserId) throws ParseException {
+		String today = dateUtil.getCurrentDateString();
+	    //未入力件数を取得
+	    int notEnterCount = tStudentAttendanceMapper.notEnterCount(lmsUserId, 0, today);
+	    return notEnterCount > 0;
+	}
 
+	
 }
