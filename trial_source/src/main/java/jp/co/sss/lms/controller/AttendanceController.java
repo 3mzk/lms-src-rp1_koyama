@@ -1,5 +1,4 @@
 package jp.co.sss.lms.controller;
-
 import java.text.ParseException;
 import java.util.List;
 
@@ -24,12 +23,39 @@ import jp.co.sss.lms.util.Constants;
 @Controller
 @RequestMapping("/attendance")
 public class AttendanceController {
+	
 
 	@Autowired
 	private StudentAttendanceService studentAttendanceService;
 	@Autowired
 	private LoginUserDto loginUserDto;
 
+
+	//task25
+
+
+	@RequestMapping(path ="/detail/check", method = RequestMethod.GET)
+	public String notEnterCheck(Model model)
+			throws ParseException {
+			
+		Integer lmsUserId = loginUserDto.getLmsUserId();
+
+		Boolean notEntered = studentAttendanceService.notEnterCheck(lmsUserId);
+		model.addAttribute("notEntered", true);
+
+		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
+				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
+		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
+		
+
+		return "attendance/detail";
+	}
+
+	
+	
+	
+	
+	
 	/**
 	 * 勤怠管理画面 初期表示
 	 * 
@@ -40,7 +66,11 @@ public class AttendanceController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(path = "/detail", method = RequestMethod.GET)
-	public String index(Model model) {
+	public String index(Model model) throws ParseException{
+		Integer lmsUserId = loginUserDto.getLmsUserId();
+	    Boolean notEntered = studentAttendanceService.notEnterCheck(lmsUserId);
+	    model.addAttribute("notEntered", notEntered);
+
 
 		// 勤怠一覧の取得
 		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
@@ -144,31 +174,6 @@ public class AttendanceController {
 		return "attendance/detail";
 	}
 
-	//task25
-//	@Autowired
-	
-	
-	
-	private StudentAttendanceService service;
-	@RequestMapping(path ="/detail")
-	public String notEnterCheck(Model model)
-			throws ParseException {
-			
-		Integer lmsUserId = loginUserDto.getLmsUserId();
-
-		Boolean notEntered = service.notEnterCheck(lmsUserId);
-		model.addAttribute("notEntered", notEntered);
-
-		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
-				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
-		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
-		
-		return "attendance/detail";
-	}
-
-	
-	
-	
 	
 	
 	
