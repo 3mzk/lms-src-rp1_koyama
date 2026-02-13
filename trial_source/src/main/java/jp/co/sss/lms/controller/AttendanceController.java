@@ -146,6 +146,9 @@ public class AttendanceController {
 
 	//task25
 //	@Autowired
+	
+	
+	
 //	private StudentAttendanceService service;
 //	@RequestMapping(path ="/detail")
 //	public String notEnterCheck(Model model)

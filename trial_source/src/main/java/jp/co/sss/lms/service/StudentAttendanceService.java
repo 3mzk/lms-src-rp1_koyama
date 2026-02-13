@@ -70,6 +70,8 @@ public class StudentAttendanceService {
 			}
 		}
 
+		
+		
 		return attendanceManagementDtoList;
 	}
 
