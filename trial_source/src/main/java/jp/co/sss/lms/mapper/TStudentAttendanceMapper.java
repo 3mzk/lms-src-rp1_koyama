@@ -17,6 +17,9 @@ import jp.co.sss.lms.entity.TStudentAttendance;
 @Mapper
 public interface TStudentAttendanceMapper {
 
+	 Integer notEnterCount(Integer lmsUserId);
+	
+
 	/**
 	 * 勤怠情報（受講生入力）取得（LMSユーザーID）
 	 * 
@@ -65,12 +68,7 @@ public interface TStudentAttendanceMapper {
 	 */
 	Boolean update(TStudentAttendance tStudentAttendance);
 	
-	
-	//勤怠未入力 t.25
-	int notEnterCount(
-			@Param("lmsUserId") Integer lmsUserId,
-		    @Param("status") Integer status,
-		    @Param("today") String today);
+
 
 	
 	

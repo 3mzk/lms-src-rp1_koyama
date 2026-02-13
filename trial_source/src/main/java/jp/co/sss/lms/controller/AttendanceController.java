@@ -2,6 +2,8 @@ package jp.co.sss.lms.controller;
 import java.text.ParseException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,34 +26,35 @@ import jp.co.sss.lms.util.Constants;
 @RequestMapping("/attendance")
 public class AttendanceController {
 	
-
+	
+	private static final Logger logger = LoggerFactory.getLogger(AttendanceController.class);
 	@Autowired
 	private StudentAttendanceService studentAttendanceService;
 	@Autowired
 	private LoginUserDto loginUserDto;
-
+	
 
 	//task25
 
 
-	@RequestMapping(path ="/detail/check", method = RequestMethod.GET)
-	public String notEnterCheck(Model model)
-			throws ParseException {
-			
-		Integer lmsUserId = loginUserDto.getLmsUserId();
-
-		Boolean notEntered = studentAttendanceService.notEnterCheck(lmsUserId);
-		model.addAttribute("notEntered", true);
-
-		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
-				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
-		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
-		
-
-		return "attendance/detail";
-	}
-
-	
+//	@RequestMapping(path ="/detail/check", method = RequestMethod.GET)
+//	public String notEnterCheck(Model model)
+//			throws ParseException {
+//			
+//		Integer lmsUserId = loginUserDto.getLmsUserId();
+//
+//		Boolean notEntered = studentAttendanceService.notEnterCheck(lmsUserId);
+//		model.addAttribute("notEntered", true);
+//
+//		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
+//				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
+//		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
+//		
+//
+//		return "attendance/detail";
+//	}
+//
+//	
 	
 	
 	
@@ -67,7 +70,11 @@ public class AttendanceController {
 	 */
 	@RequestMapping(path = "/detail", method = RequestMethod.GET)
 	public String index(Model model) throws ParseException{
+	
 		Integer lmsUserId = loginUserDto.getLmsUserId();
+		logger.info("index called, lmsUserId={}", lmsUserId);
+
+
 	    Boolean notEntered = studentAttendanceService.notEnterCheck(lmsUserId);
 	    model.addAttribute("notEntered", notEntered);
 
@@ -76,6 +83,7 @@ public class AttendanceController {
 		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
 		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
+		 logger.info("index notEntered={}", notEntered);
 
 		return "attendance/detail";
 	}

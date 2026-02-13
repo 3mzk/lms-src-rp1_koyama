@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jp.co.sss.lms.controller.AttendanceController;
 import jp.co.sss.lms.dto.AttendanceManagementDto;
 import jp.co.sss.lms.dto.LoginUserDto;
 import jp.co.sss.lms.entity.TStudentAttendance;
@@ -30,7 +33,8 @@ import jp.co.sss.lms.util.TrainingTime;
  */
 @Service
 public class StudentAttendanceService {
-
+	private static final Logger logger = LoggerFactory.getLogger(AttendanceController.class);
+	
 	@Autowired
 	private DateUtil dateUtil;
 	@Autowired
@@ -52,10 +56,21 @@ public class StudentAttendanceService {
 	// "過去日の勤怠に未入力があります。" okで閉じる
 	
 	public  Boolean notEnterCheck(Integer lmsUserId) throws ParseException {
-		String today = dateUtil.getCurrentDateString();
+		logger.info("notEnterCheck called for lmsUserId={}", lmsUserId);
+	
 	    //未入力件数を取得
-	    int notEnterCount = tStudentAttendanceMapper.notEnterCount(lmsUserId, 0, today);
-	    return notEnterCount > 0;
+		 Integer notEnterCount;
+		 try {
+		        notEnterCount = tStudentAttendanceMapper.notEnterCount(lmsUserId);
+		    } catch (Exception e) {
+		        notEnterCount = 0;
+		    }
+
+	        if (notEnterCount == null) {
+	            notEnterCount = 0;
+	        }
+	        boolean result = notEnterCount > 0;
+	        return result;
 	}
 	
 	

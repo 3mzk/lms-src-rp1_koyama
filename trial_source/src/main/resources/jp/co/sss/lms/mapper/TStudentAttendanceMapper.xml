@@ -3,9 +3,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.sss.lms.mapper.TStudentAttendanceMapper">
 
-	<select id="notEnterCount" resultType="int">
+	<select id="notEnterCount" parameterType="int" resultType="int">
         SELECT COUNT(*) 
-        FROM t_student_attendance WHERE lms_user_id = #{lmsUserId} AND status = 0 AND training_date &lt; CAST(#{today} AS TIMESTAMP) AND delete_flg = 0
+        FROM t_student_attendance WHERE lms_user_id = #{lmsUserId} 
+        AND status = 0 
+        AND CAST(training_date AS DATE) &lt; CURRENT_DATE 
+        AND delete_flg = 0
     </select>
 	
 	
